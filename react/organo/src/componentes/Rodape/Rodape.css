@@ -1,0 +1,14 @@
+.rodape {
+    display:flex;
+    justify-content:space-around;
+    align-items: center;
+    background:#6278f7;
+    color:#fff;
+    padding:80px;
+}
+
+.rodape ul li{
+    display:inline-block;
+    margin-right:32px;
+    list-style-type:none
+}
