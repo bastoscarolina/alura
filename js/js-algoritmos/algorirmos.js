@@ -155,4 +155,76 @@ const ordena = (parte1, parte2)=>{
         : parte2.slice(posicaoAtualParte2)
         )
 }
-console.log(mergeSort(listaLivros))
+// console.log(mergeSort(listaLivros))
+
+const encontraMenores = (pivo, arr) =>{
+    let menores = 0
+    for(let atual =0; atual<arr.length;atual++){
+        let produtoAtual = arr[atual]
+        if(produtoAtual.preco<pivo.preco){
+            menores ++
+        }
+    }
+    trocaLugar(arr, arr.indexOf(pivo), menores)
+    return arr
+}
+
+const trocaLugar = (arr,de,para) => {
+    const elemento1 = arr[de]
+    const elemento2 = arr[para]
+
+    arr[de] = elemento2
+    arr[para] = elemento1
+}
+
+// console.log(encontraMenores(listaLivros[2], listaLivros))
+const divideNoPivo = (arr) => {
+    let pivo = arr[Math.floor(arr.length/2)]
+    encontraMenores(pivo,arr)
+    let valoreMenores = 0
+    for(let analisando = 0;analisando<arr.length;analisando++){
+        let atual = arr[analisando]
+        if(atual.preco <= pivo.preco && atual!== pivo){
+            trocaLugar(arr,analisando,valoreMenores)
+            valoreMenores++
+        }
+    }
+    return arr
+}
+// console.log(divideNoPivo(listaLivros))
+
+//Quick Sort
+const quickSort = (arr, esquerda, direita) => {
+    if(arr.length>1){
+        let indiceAtual = particiona(arr,esquerda,direita)
+        if(esquerda< indiceAtual-1){
+            quickSort(arr,esquerda,indiceAtual-1)
+        }
+        if(indiceAtual<direita){
+            quickSort(arr,indiceAtual,direita)
+        }
+    }
+    return arr
+}
+const particiona = (arr,esquerda,direita) =>{
+    let pivo = arr[Math.floor((esquerda+direita)/2)]
+    let atualEsquerda = esquerda
+    let atualDireita = direita
+
+    while(atualEsquerda<= atualDireita){
+        while(arr[atualEsquerda].preco < pivo.preco){
+            atualEsquerda++
+        }
+        while(arr[atualDireita].preco > pivo.preco){
+            atualDireita--
+        }
+        if(atualEsquerda <= atualDireita){
+            trocaLugar(arr,atualEsquerda,atualDireita)
+            atualEsquerda++
+            atualDireita--
+        }
+    }
+    return atualEsquerda
+}
+
+console.log(quickSort(listaLivros, 0, listaLivros.length - 1 ))
