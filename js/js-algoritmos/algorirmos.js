@@ -1,5 +1,6 @@
 const {edFolha, edGalho} = require('./arraysBase') 
 const listaLivros = require('./listaLivros')
+const listaOrdenada = require('./listaOrdenada')
 const livros = [
     {
         nome: "Javascript",
@@ -227,4 +228,26 @@ const particiona = (arr,esquerda,direita) =>{
     return atualEsquerda
 }
 
-console.log(quickSort(listaLivros, 0, listaLivros.length - 1 ))
+// console.log(quickSort(listaLivros, 0, listaLivros.length - 1 ))
+
+const busca = (arr,de,ate, valorBuscado)=>{
+    let indiceElemento
+    const meio = Math.floor((de+ate)/2)
+    const atual = arr[meio]
+    if(de>ate){
+        return -1
+    }else if(ate<de){
+        return -1
+    }
+    if(valorBuscado === atual.preco){
+        return meio
+    }
+    if(valorBuscado<atual.preco){
+        return busca(arr,de,meio - 1,valorBuscado)
+    }
+    if(valorBuscado>atual.preco){
+        return busca(arr,meio + 1,ate,valorBuscado)
+    }
+    return indiceElemento
+}
+console.log(busca(listaOrdenada,0,listaOrdenada.length-1,41))
